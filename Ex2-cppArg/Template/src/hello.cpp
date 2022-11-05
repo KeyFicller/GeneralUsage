@@ -1,9 +1,10 @@
 #include "hello.h"
 
 #include <iostream>
+#include <vector>
 #define LOG(x) std::cout << (x) << std::endl
 
-#define EXAMPLE_4
+#define EXAMPLE_5
 
 #ifdef EXAMPLE_1
 template<typename... T>
@@ -91,6 +92,31 @@ int main()
 	pa->log();
 	pb->log();
 	return 0;
+}
+
+#endif
+
+#ifdef EXAMPLE_5
+
+void add(std::vector<int>& vec)
+{
+	for (auto value : vec) {
+		LOG(value);
+	}
+	vec.clear();
+}
+template<typename ...Args>
+void add(std::vector<int>& vec, int first, Args... rest)
+{
+	vec.push_back(first);
+	add(vec, rest...);
+}
+
+int main()
+{
+	std::vector<int> test;
+	add(test, 1, 2, 3);
+	add(test, 3, 4, 5);
 }
 
 #endif
